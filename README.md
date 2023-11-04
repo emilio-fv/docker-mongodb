@@ -1,0 +1,1 @@
+A simple express server with a mongoDb database using Docker to mock a development environment
