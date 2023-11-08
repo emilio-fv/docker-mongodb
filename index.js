@@ -2,10 +2,15 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 4000;
 const { connectToMongoDb } = require('./config/db');
+const { seedDb } = require('./seed');
 const { usersRouter } = require('./api/users/users.routes');
 
 // Set up db connection
 connectToMongoDb();
+
+if (process.env.NODE_ENV !== 'production') {
+    seedDb();
+}
 
 // Setup middleware
 app.use(express.json());

@@ -25,15 +25,6 @@ services:
     networks:
       - backend
 
-  seed:
-    build:
-      context: ./seed
-      dockerfile: Dockerfile
-    depends_on:
-      - mongo
-    networks:
-      - backend
-
 volumes:
   mongo_data: {}
 
