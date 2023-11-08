@@ -1,0 +1,41 @@
+version: '1'
+
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    volumes:
+      - /app/node_modules
+      - ./:/app
+    restart: always
+    networks:
+      - backend
+
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - backend
+
+  seed:
+    build:
+      context: ./seed
+      dockerfile: Dockerfile
+    depends_on:
+      - mongo
+    networks:
+      - backend
+
+volumes:
+  mongo_data: {}
+
+networks:
+  backend:
